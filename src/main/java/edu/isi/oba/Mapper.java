@@ -127,7 +127,8 @@ class Mapper {
                 //filter if the class prefix does not have the default ontology prefix
                 if (cls.getIRI() != null) {
                     if ((selected_classes != null && selected_classes.contains(cls)) || selected_classes == null){
-                        add_owlclass_to_openapi(query, pathGenerator, ontology, defaultOntologyPrefixIRI, cls, true);
+                        String prefix = cls.getIRI().getNamespace();
+                        add_owlclass_to_openapi(query, pathGenerator, ontology, prefix, cls, true);
                     }
                 }
             }
