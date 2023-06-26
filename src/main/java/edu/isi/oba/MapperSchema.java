@@ -428,7 +428,7 @@ class MapperSchema {
 							for (String j : restrictionsValuesFromClass.keySet()) {
 								Map<String, String> restrictionValues = restrictionsValuesFromClass.get(j);
 								if (j.equals(sfp.getShortForm(op.getIRI()))) {
-									if (rangesOP.get(0).equals("defaultValue"))
+									if (rangesOP == null || rangesOP.get(0).equals("defaultValue"))
 										mapperObjectProperty = new MapperObjectProperty(sfp.getShortForm(op.getIRI()), propertyDescription, false, restrictionValues, rangesOP, false, true);
 									else
 										mapperObjectProperty = new MapperObjectProperty(sfp.getShortForm(op.getIRI()), propertyDescription, false, restrictionValues, rangesOP);

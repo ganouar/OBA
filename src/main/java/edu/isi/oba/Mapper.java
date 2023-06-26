@@ -126,7 +126,7 @@ class Mapper {
             for (OWLClass cls : classes) {
                 //filter if the class prefix does not have the default ontology prefix
                 if (cls.getIRI() != null) {
-                    if (selected_classes == null || selected_classes.contains(cls)){
+                    if ((selected_classes != null && selected_classes.contains(cls)) || selected_classes == null){
                         add_owlclass_to_openapi(query, pathGenerator, ontology, defaultOntologyPrefixIRI, cls, true);
                     }
                 }
@@ -163,7 +163,7 @@ class Mapper {
                 // add references to schemas in class restrictions (check selected classes to avoid conflicts)
                 for (String classToCheck : mapperSchema.getPropertiesFromObjectRestrictions_ranges()) {
                     OWLClass clsToCheck = manager.getOWLDataFactory().getOWLClass(IRI.create(classPrefixIRI + classToCheck));
-                    if (this.mappedClasses.contains(clsToCheck) || this.selected_classes.contains(clsToCheck)){
+                    if (this.mappedClasses.contains(clsToCheck) || (this.selected_classes != null && this.selected_classes.contains(clsToCheck))){
                         logger.info("The class " + clsToCheck + " exists ");
                     } else {
                         //rare cases have instances, so we filter them out and recheck that the target is a class.

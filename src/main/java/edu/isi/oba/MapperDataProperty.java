@@ -65,7 +65,8 @@ class MapperDataProperty {
   }
 
   private String getDataType(String key){
-    return this.dataTypes.get(key);
+    String settedType = this.dataTypes.get(key);
+    return settedType == null ? STRING_TYPE : settedType;
   }
 
   private static final String STRING_TYPE = "string";

@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.IRIShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataOneOfImpl;
 
 /**
  * Visitor interface to inspect Class Restrictions
@@ -224,8 +225,13 @@ public class RestrictionVisitor implements OWLObjectVisitor {
 			ce.getFiller().accept(this);
 		} else {       	   
 			List<String> ranges = new ArrayList<String>();
-			ranges.add(sfp.getShortForm(ce.getFiller().asOWLDatatype().getIRI()));
-			if (ce.getFiller().asOWLDatatype().equals(owlThing)) {
+			if(ce.getFiller() instanceof OWLDataOneOfImpl){
+				ranges.add(sfp.getShortForm(ce.getFiller().getDataRangeType().getIRI()));
+			}
+			else {
+				ranges.add(sfp.getShortForm(ce.getFiller().asOWLDatatype().getIRI()));
+			}
+			if (!(ce.getFiller() instanceof  OWLDataOneOfImpl) && ce.getFiller().asOWLDatatype().equals(owlThing)) {
 				logger.info("Ignoring owl:Thing range" + property_name);                       
 			}
 			else

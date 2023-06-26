@@ -38,7 +38,7 @@ class MapperObjectProperty {
   }
 
   public Schema getSchemaByObjectProperty(){
-    if (this.ref.size() == 0){
+    if (this.ref == null || this.ref.size() == 0){
       return getComposedSchemaObject(this.ref, array, nullable);
     }
 
@@ -120,6 +120,10 @@ class MapperObjectProperty {
     	for (String restriction:  restrictions.keySet()) { 
     		String value = restrictions.get(restriction); 
 
+            if(refs == null)
+            {
+                continue;
+            }
     		for (String item:refs) {
     			Schema objectRange = new ObjectSchema();
     			objectRange.setType("object");
@@ -158,7 +162,7 @@ class MapperObjectProperty {
     			}             
     		}
     	}     
-    	if (refs.size() == 0)
+    	if (refs == null || refs.size() == 0)
     		objects.setItems(object);
     		objects.setNullable(nullable);
     	return objects;
